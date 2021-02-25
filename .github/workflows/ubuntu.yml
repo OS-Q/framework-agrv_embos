@@ -1,0 +1,55 @@
+name: ubuntu
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7]
+        examples:
+          - "examples/zephyr-ble-beacon"
+          - "examples/zephyr-net-echo-client"
+          - "examples/zephyr-subsys-nvs"
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Toolchains
+        run: |
+          pip3 install adafruit-nrfutil uritemplate requests intelhex
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/OS-Q/S03/archive/master.zip
+          platformio platform install https://github.com/OS-Q/P41.git
+
+      - name: Build
+        run: |
+          platformio run -d ${{ matrix.examples }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: ${{ matrix.examples }}/build
+
+      - name: Create Release Asset
+        if: ${{ github.event_name == 'release' }}
+        run: zip -jr firmware-${{ github.event.release.tag_name }}.zip ${{ matrix.examples }}/build
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ github.event_name == 'release' }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: firmware-${{ github.event.release.tag_name }}.zip
+          asset_name: firmware-${{ github.event.release.tag_name }}.zip
+          asset_content_type: application/zip
