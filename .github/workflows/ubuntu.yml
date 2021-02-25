@@ -34,22 +34,8 @@ jobs:
         run: |
           platformio run -d ${{ matrix.examples }}
 
-      - uses: actions/upload-artifact@v2
+      - name: Upload
+        uses: actions/upload-artifact@v2
         with:
-          name: T41-${{ github.event.release.tag_name }}
+          name: T41-build
           path: ${{ matrix.examples }}/build
-
-      - name: Create Release Asset
-        if: ${{ github.event_name == 'release' }}
-        run: zip -jr firmware-${{ github.event.release.tag_name }}.zip ${{ matrix.examples }}/build
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ github.event_name == 'release' }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: firmware-${{ github.event.release.tag_name }}.zip
-          asset_name: firmware-${{ github.event.release.tag_name }}.zip
-          asset_content_type: application/zip
