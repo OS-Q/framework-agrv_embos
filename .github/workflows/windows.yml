@@ -11,8 +11,8 @@ jobs:
         python-version: [3.7]
         examples:
           - "examples/zephyr-ble-beacon"
-          - "examples/zephyr-net-echo-client"
           - "examples/zephyr-subsys-nvs"
+          - "examples/zephyr-net-echo-client"
 
     steps:
       - uses: actions/checkout@v2

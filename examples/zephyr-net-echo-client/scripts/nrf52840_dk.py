@@ -6,7 +6,7 @@ def after_build(source, target, env):
 	isExists=os.path.exists('build')
 	if not isExists:
 		os.mkdir('build')
-	shutil.copy(firmware_source, 'build/zephyr_subsys_nvs_nrf52840_dk.hex')
+	shutil.copy(firmware_source, 'build/zephyr_net_echo_client_nrf52840_dk.hex')
 
 env.AddPostAction("buildprog", after_build)
 

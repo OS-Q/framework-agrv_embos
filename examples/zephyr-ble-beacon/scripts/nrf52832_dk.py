@@ -6,7 +6,7 @@ def after_build(source, target, env):
 	isExists=os.path.exists('build')
 	if not isExists:
 		os.mkdir('build')
-	shutil.copy(firmware_source, 'build/zephyr-ble-beacon.hex')
+	shutil.copy(firmware_source, 'build/zephyr_ble_beacon_nrf52832_dk.hex')
 
 env.AddPostAction("buildprog", after_build)
 
