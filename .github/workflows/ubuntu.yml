@@ -36,7 +36,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: firmware
+          name: T41
           path: ${{ matrix.examples }}/build
 
       - name: Create Release Asset

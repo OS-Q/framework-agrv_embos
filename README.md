@@ -9,7 +9,6 @@
 
 ### [简介](https://github.com/OS-Q/T41/wiki)
 
-
-
+基于 [P41](https://github.com/OS-Q/P41) 进行构建
 
 ### [Q = (OpenSource & OperatingSystem) ](http://www.OS-Q.com)
