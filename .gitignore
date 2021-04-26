@@ -1,5 +1,1 @@
-*pyc*
-*.pio/
-*.vscode/
-*.html
-*.rst
+.pio
