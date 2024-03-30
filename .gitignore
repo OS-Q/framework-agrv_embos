@@ -1,1 +1,7 @@
 .pio
+.vscode
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

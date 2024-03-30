@@ -1,0 +1,14 @@
+{
+  "name": "framework-agrv_embos",
+  "version": "1.0.0",
+  "description": "Embeded OS, customized for AgRV devices",
+  "keywords": [
+    "framework",
+    "embOS",
+    "embos",
+    "embeded OS",
+    "risc-v",
+    "agrv",
+    "agm"
+  ]
+}
